@@ -514,9 +514,9 @@ const PLATFORMS = [
 ];
 
 const SOCIALS = [
-  { name: "Instagram", url: "" },
-  { name: "YouTube",   url: "" },
-  { name: "TikTok",    url: "" }
+  { name: "Instagram", url: "https://www.instagram.com/aruanlumen/" },
+  { name: "YouTube",   url: "https://www.youtube.com/@aruanlumen" },
+  { name: "TikTok",    url: "https://www.tiktok.com/@aruanlumen" }
 ];
 
 /* Cidades de exemplo no bloco de comunidade.
