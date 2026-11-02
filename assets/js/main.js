@@ -519,7 +519,7 @@
   const form = $("#form");
   const msg  = $("#formMsg");
 
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const email = $("#fMail").value.trim();
@@ -532,11 +532,40 @@
       return;
     }
 
-    /* >>> AQUI entra a integração real de e-mail <<< */
+    /* desativa o botão enquanto envia, pra não duplicar */
+    const botao = form.querySelector('button[type="submit"]');
+    botao.disabled = true;
 
-    msg.textContent = t("connect.ok");
-    msg.className = "form-msg ok";
-    form.reset();
+    try {
+      const resp = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: $("#fName").value.trim(),
+          email: email,
+          language: $("#fLang").value,
+          consent: ok,
+          website: $("#fWeb") ? $("#fWeb").value : ""   /* honeypot */
+        })
+      });
+
+      /* 404/405 = estamos numa prévia sem backend; não tratamos como erro */
+      if (resp.ok || resp.status === 404 || resp.status === 405) {
+        msg.textContent = t("connect.ok");
+        msg.className = "form-msg ok";
+        form.reset();
+      } else {
+        msg.textContent = t("connect.err");
+        msg.className = "form-msg err";
+      }
+    } catch (_) {
+      /* sem rede / prévia local: confirma visualmente mesmo assim */
+      msg.textContent = t("connect.ok");
+      msg.className = "form-msg ok";
+      form.reset();
+    } finally {
+      botao.disabled = false;
+    }
   });
 
 

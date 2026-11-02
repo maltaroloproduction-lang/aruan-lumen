@@ -319,6 +319,9 @@
     </div>
 
     <form class="form reveal d2" id="form" novalidate>
+      <!-- honeypot: humano não vê nem preenche; robô preenche e é descartado -->
+      <input type="text" name="website" id="fWeb" tabindex="-1" autocomplete="off"
+             aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;opacity:0">
       <div class="field">
         <label for="fName" data-t="connect.name">Name (optional)</label>
         <input id="fName" name="name" type="text" autocomplete="name">
