@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ============ SEO ============ -->
+<title>Aruan Lumen — Music for what remains</title>
+<meta name="description" content="Aruan Lumen is a contemporary music project blending alternative soul, cinematic atmospheres and intimate songwriting. Music for love, memory, absence and beginning again.">
+<link rel="canonical" href="https://aruanlumen.com/">
+<meta name="theme-color" content="#101010">
+
+<!-- Open Graph: como o link aparece quando alguém compartilha -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aruan Lumen">
+<meta property="og:title" content="Aruan Lumen — Music for what remains">
+<meta property="og:description" content="Alternative soul, cinematic atmospheres and intimate songwriting.">
+<meta property="og:url" content="https://aruanlumen.com/">
+<meta property="og:image" content="https://aruanlumen.com/assets/img/covers/meu-caminho-de-volta.webp">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Dados estruturados: ajuda o Google a entender que é um artista.
+     Só contém informação do dossiê — nada inventado. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MusicGroup",
+  "name": "Aruan Lumen",
+  "url": "https://aruanlumen.com/",
+  "genre": ["Alternative Soul", "Indie Folk", "Alternative Pop", "Ambient"],
+  "description": "Contemporary music project blending alternative soul, cinematic atmospheres and intimate songwriting.",
+  "sameAs": [
+    "https://open.spotify.com/artist/7jW0qHMgJdJz7Gdr4pb1jk",
+    "https://music.apple.com/us/artist/aruan-lumen/1861380796",
+    "https://www.deezer.com/artist/361880382",
+    "https://music.youtube.com/channel/UCVdAnzR-u2N1jM60nbhsLNA"
+  ],
+  "album": [
+    { "@type": "MusicAlbum", "name": "Meu Caminho de Volta",    "datePublished": "2026-06-28" },
+    { "@type": "MusicAlbum", "name": "The Rope And The Scar",   "datePublished": "2026-06-02" },
+    { "@type": "MusicAlbum", "name": "Anatomia do Silêncio",    "datePublished": "2026-04-24" },
+    { "@type": "MusicAlbum", "name": "Where Silence Lives",     "datePublished": "2026-04-17" },
+    { "@type": "MusicAlbum", "name": "STAY",                    "datePublished": "2026-01-23" },
+    { "@type": "MusicAlbum", "name": "Anatomia da Ausência",    "datePublished": "2026-01-20" },
+    { "@type": "MusicAlbum", "name": "Where the Broken Shine",  "datePublished": "2025-12-19" }
+  ]
+}
+</script>
+
+<!-- ============ FONTES ============ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+<!-- link invisível que só aparece pra quem navega por teclado -->
+<a class="skip" href="#home">Skip to content</a>
+
+<!-- textura de filme por cima de tudo -->
+<div class="grain" aria-hidden="true"></div>
+
+<!-- fio de progresso da leitura -->
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<!-- prévia da capa que segue o mouse na discografia -->
+<div class="hover-peek" id="peek" aria-hidden="true"></div>
+
+
+<!-- =========================================================
+     NAVEGAÇÃO
+     ========================================================= -->
+<header class="nav" id="nav">
+  <a class="nav-brand" href="#home">Aruan Lumen</a>
+
+  <nav class="nav-links" id="navLinks" aria-label="Main">
+    <a href="#home"    data-t="nav.home">Home</a>
+    <a href="#about"   data-t="nav.about">About</a>
+    <a href="#music"   data-t="nav.music">Music</a>
+    <a href="#visuals" data-t="nav.visuals">Visuals</a>
+    <a href="#connect" data-t="nav.connect">Connect</a>
+  </nav>
+
+  <div class="nav-right">
+    <!-- troca de idioma -->
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" class="is-on">EN</button>
+      <span class="lang-sep" aria-hidden="true">/</span>
+      <button type="button" data-lang="pt">PT</button>
+    </div>
+    <!-- botão do menu no celular -->
+    <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- menu em tela cheia (celular) -->
+<nav class="drawer" id="drawer" aria-label="Mobile">
+  <a href="#home"    data-t="nav.home">Home</a>
+  <a href="#about"   data-t="nav.about">About</a>
+  <a href="#music"   data-t="nav.music">Music</a>
+  <a href="#visuals" data-t="nav.visuals">Visuals</a>
+  <a href="#connect" data-t="nav.connect">Connect</a>
+</nav>
+
+<!-- trilho lateral de seções (só desktop) -->
+<nav class="rail" id="rail" aria-hidden="true">
+  <a href="#home"><i></i><span class="rail-txt">01</span></a>
+  <a href="#about"><i></i><span class="rail-txt">02</span></a>
+  <a href="#sound"><i></i><span class="rail-txt">03</span></a>
+  <a href="#music"><i></i><span class="rail-txt">04</span></a>
+  <a href="#visuals"><i></i><span class="rail-txt">05</span></a>
+  <a href="#connect"><i></i><span class="rail-txt">06</span></a>
+</nav>
+
+
+<main>
+
+<!-- =========================================================
+     01 · HERO — a primeira tela
+     ========================================================= -->
+<section class="hero" id="home">
+  <div class="letterbox top" aria-hidden="true"></div>
+
+  <!-- a fotografia de abertura entra aqui -->
+  <div class="hero-media" id="heroMedia" aria-hidden="true"></div>
+  <div class="hero-veil" aria-hidden="true"></div>
+
+  <div class="hero-inner wrap">
+    <h1 class="hero-name t-display hero-fade f1">
+      <span class="l1">Aruan</span>
+      <span class="l2">Lumen</span>
+    </h1>
+
+    <p class="hero-tagline hero-fade f2" data-t="hero.tagline">Music for what remains.</p>
+
+    <div class="hero-ctas hero-fade f3">
+      <a class="btn btn-primary" href="#music"   data-t="hero.cta1">Explore the music</a>
+      <a class="btn"             href="#about"   data-t="hero.cta2">Enter the world</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll hero-fade f4" aria-hidden="true">
+    <span data-t="hero.scroll">Scroll</span><i></i>
+  </div>
+
+  <div class="letterbox bot" aria-hidden="true"></div>
+</section>
+
+
+<!-- =========================================================
+     FAIXA CORRIDA — o conceito da marca em movimento
+     ========================================================= -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marquee"></div>
+</div>
+
+
+<!-- =========================================================
+     02 · O ARTISTA
+     ========================================================= -->
+<section class="section" id="about">
+  <div class="wrap artist-grid">
+
+    <div class="artist-text">
+      <p class="label reveal" data-t="artist.label">The Artist</p>
+      <h2 class="t-h1 reveal d1" data-t="artist.title">Some stories stay with us.</h2>
+
+      <p class="artist-open reveal d2" data-t="artist.open"></p>
+      <p class="lead reveal d2" data-t="artist.p2"></p>
+      <p class="lead reveal d3" data-t="artist.p3"></p>
+
+      <!-- ficha técnica no estilo créditos de filme -->
+      <dl class="credits reveal d3" id="credits"></dl>
+
+      <p style="margin-top:2.6rem" class="reveal d4">
+        <a class="link-u" href="#music" data-t="artist.cta">Discover Aruan</a>
+      </p>
+    </div>
+
+    <div class="artist-portrait reveal d1" id="portrait"></div>
+
+  </div>
+</section>
+
+
+<!-- =========================================================
+     CITAÇÃO — o momento mais "obra" da página
+     ========================================================= -->
+<section class="slab">
+  <div class="wrap">
+    <blockquote class="slab-quote reveal">
+      <span data-t="slab.l1"></span>
+      <em data-t="slab.l2"></em>
+    </blockquote>
+    <p class="slab-credit reveal d2" data-t="slab.credit"></p>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     03 · LANÇAMENTO EM DESTAQUE
+     (troque o destaque editando FEATURED_ID em data.js)
+     ========================================================= -->
+<section class="section featured" id="release">
+  <div class="wrap featured-grid">
+
+    <div class="featured-cover reveal" id="featuredCover"></div>
+
+    <div>
+      <p class="label reveal d1" data-t="featured.label">Featured Release</p>
+      <div class="featured-meta reveal d1" id="featuredMeta"></div>
+      <h2 class="t-h1 featured-title reveal d2" id="featuredTitle"></h2>
+      <p class="lead reveal d2" id="featuredDesc"></p>
+
+      <!-- contador: fica escondido se não houver data confirmada -->
+      <div class="countdown reveal d3" id="countdown" hidden></div>
+
+      <div class="featured-actions reveal d3" id="featuredActions"></div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =========================================================
+     04 · IDENTIDADE SONORA
+     Isto é o que o streaming não dá: contexto.
+     ========================================================= -->
+<section class="section sonic" id="sound">
+  <div class="wrap">
+    <p class="label reveal" data-t="sonic.label">Sonic Identity</p>
+    <h2 class="t-h1 reveal d1" data-t="sonic.title"></h2>
+    <p class="lead reveal d2" data-t="sonic.intro"></p>
+
+    <div class="sonic-grid reveal d2" id="sonicGrid"></div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     05 · DISCOGRAFIA
+     ========================================================= -->
+<section class="section" id="music">
+  <div class="wrap">
+
+    <div class="disc-head">
+      <p class="label reveal" data-t="music.label">Music</p>
+      <h2 class="t-h1 reveal d1" data-t="music.title"></h2>
+      <p class="lead reveal d2" data-t="music.intro"></p>
+    </div>
+
+    <!-- a lista é montada a partir de ALBUMS em data.js -->
+    <div class="disc-list reveal d2" id="discList"></div>
+
+    <!-- obras e conceitos ainda não lançados -->
+    <div class="archive reveal">
+      <h3 class="t-h3" data-t="music.archive.title"></h3>
+      <p class="lead" style="margin-top:1rem" data-t="music.archive.intro"></p>
+      <ul class="archive-list" id="archiveList"></ul>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =========================================================
+     06 · VISUAIS
+     ========================================================= -->
+<section class="section bg-2" id="visuals">
+  <div class="wrap">
+    <div class="visuals-head">
+      <p class="label reveal" data-t="visuals.label">Visuals</p>
+      <h2 class="t-h1 reveal d1" data-t="visuals.title"></h2>
+      <p class="lead reveal d2" data-t="visuals.intro"></p>
+    </div>
+
+    <div class="mosaic reveal d2" id="mosaic"></div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     07 · CARTAS DO ARUAN (fase 2)
+     ========================================================= -->
+<section class="section-sm letters">
+  <div class="wrap">
+    <p class="label reveal" data-t="letters.label">Letters from Aruan</p>
+    <h2 class="t-h2 letters-title reveal d1" data-t="letters.title"></h2>
+    <p class="lead reveal d2" data-t="letters.p"></p>
+    <p class="muted reveal d3" style="margin-top:2rem;font-size:0.7rem;letter-spacing:0.24em;text-transform:uppercase"
+       data-t="letters.cta"></p>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     08 · FIQUE PERTO — newsletter
+     ========================================================= -->
+<section class="section connect" id="connect">
+  <div class="wrap connect-grid">
+
+    <div>
+      <p class="label reveal" data-t="connect.label">Stay Close</p>
+      <h2 class="t-h1 reveal d1" data-t="connect.title"></h2>
+      <p class="connect-sub reveal d2" data-t="connect.sub"></p>
+
+      <!-- semente da comunidade: na fase 2 vem de quem assina -->
+      <p class="muted reveal d3" style="margin-top:3rem;font-size:0.62rem;letter-spacing:0.24em;text-transform:uppercase"
+         data-t="connect.pins"></p>
+      <ul class="pins reveal d3" id="pins"></ul>
+    </div>
+
+    <form class="form reveal d2" id="form" novalidate>
+      <div class="field">
+        <label for="fName" data-t="connect.name">Name (optional)</label>
+        <input id="fName" name="name" type="text" autocomplete="name">
+      </div>
+
+      <div class="field">
+        <label for="fMail" data-t="connect.email">Your e-mail</label>
+        <input id="fMail" name="email" type="email" autocomplete="email" required>
+      </div>
+
+      <div class="field">
+        <label for="fLang" data-t="connect.lang">Preferred language</label>
+        <select id="fLang" name="language">
+          <option value="en">English</option>
+          <option value="pt">Português (BR)</option>
+        </select>
+      </div>
+
+      <!-- consentimento explícito, como pede o dossiê e a LGPD -->
+      <label class="consent">
+        <input type="checkbox" id="fOk" name="consent" required>
+        <span data-t="connect.consent"></span>
+      </label>
+
+      <button class="btn btn-primary" type="submit" data-t="connect.cta">Join the journey</button>
+      <p class="form-msg" id="formMsg" role="status" aria-live="polite"></p>
+    </form>
+
+  </div>
+</section>
+
+</main>
+
+
+<!-- =========================================================
+     RODAPÉ
+     ========================================================= -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+
+      <div>
+        <p class="footer-brand">Aruan Lumen</p>
+        <p class="muted" style="font-size:0.9rem;max-width:30ch" data-t="hero.tagline"></p>
+      </div>
+
+      <div>
+        <h4 data-t="footer.listen">Listen on</h4>
+        <ul class="footer-list" id="footPlatforms"></ul>
+      </div>
+
+      <div>
+        <h4 data-t="footer.follow">Follow</h4>
+        <ul class="footer-list" id="footSocials"></ul>
+      </div>
+
+      <div>
+        <h4 data-t="footer.more">More</h4>
+        <ul class="footer-list">
+          <li><span class="off" data-t="footer.press">Press kit</span></li>
+          <li><span class="off" data-t="footer.contact">Professional contact</span></li>
+          <li><span class="off" data-t="footer.privacy">Privacy</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <!-- transparência sobre a natureza do projeto, como pede o dossiê -->
+      <p class="footer-ai" data-t="footer.ai"></p>
+      <p>© <span id="year"></span> Aruan Lumen · <span data-t="footer.rights"></span></p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- =========================================================
+     LIGHTBOX — ver a foto em tamanho grande
+     ========================================================= -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image">
+  <button class="lightbox-close" id="lbClose" type="button" aria-label="Close"></button>
+  <div class="lightbox-media" id="lbMedia"></div>
+  <p class="lightbox-cap" id="lbCap"></p>
+</div>
+
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+# Aruan Lumen — aruanlumen.com
+User-agent: *
+Allow: /
+
+Sitemap: https://aruanlumen.com/sitemap.xml

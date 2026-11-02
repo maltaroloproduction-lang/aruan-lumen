@@ -1,0 +1,5 @@
+# arquivos de trabalho que nao vao pro site
+preview.html
+build-preview.py
+.claude/
+assets/img/covers/*.jpg
