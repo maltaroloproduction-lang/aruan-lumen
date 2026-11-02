@@ -51,7 +51,7 @@ module.exports = async (req, res) => {
     };
 
     await put("subscribers/" + id + ".json", JSON.stringify(registro, null, 2), {
-      access: "public",            /* nivel do arquivo; o store e privado   */
+      access: "private",           /* e-mails de fas: NUNCA publicos        */
       addRandomSuffix: false,      /* nome estavel = sem duplicata          */
       allowOverwrite: true,        /* reinscricao atualiza o registro       */
       contentType: "application/json"
