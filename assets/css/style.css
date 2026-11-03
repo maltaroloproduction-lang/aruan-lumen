@@ -1189,3 +1189,117 @@ body.is-ready .f4 { transition-delay: 1.10s; }
   .consent { padding: 0.4rem 0; }
   .consent input { width: 24px; height: 24px; }
 }
+
+
+/* =============================================================
+   21. A RODA — carrossel 3D dos álbuns girado pelo scroll
+   -------------------------------------------------------------
+   A seção tem uma "pista" alta (--runway). Enquanto você rola
+   por ela, o palco fica preso na tela (position: sticky) e a
+   roda gira: cada capa passa pela frente como num toca-discos.
+   ============================================================= */
+.wheel-stage {
+  /* altura da pista de rolagem: quanto maior, mais lenta a volta */
+  height: 340vh;
+  position: relative;
+  background: var(--ink-2);
+}
+
+/* o palco que fica preso na tela durante a rolagem */
+.wheel-sticky {
+  position: sticky; top: 0;
+  height: 100svh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  overflow: hidden;
+}
+/* brilho âmbar atrás da roda */
+.wheel-sticky::before {
+  content: ""; position: absolute;
+  width: 70vmin; height: 70vmin; border-radius: 50%;
+  background: radial-gradient(circle, rgba(184,131,80,0.10) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.wheel-label {
+  position: absolute; top: clamp(5rem, 10vh, 7rem);
+  font-size: 0.66rem; font-weight: 500;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--amber);
+}
+
+/* a cena 3D */
+.wheel-scene {
+  perspective: 1400px;
+  width: 100%;
+  height: var(--wheel-card);
+}
+.wheel {
+  position: relative;
+  width: 100%; height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* tamanho da capa e raio da roda */
+:root {
+  --wheel-card: clamp(180px, 30vmin, 300px);
+  --wheel-radius: calc(var(--wheel-card) * 1.6);
+}
+
+.wheel-item {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: var(--wheel-card); height: var(--wheel-card);
+  margin-left: calc(var(--wheel-card) / -2);
+  margin-top:  calc(var(--wheel-card) / -2);
+  transform-style: preserve-3d;
+  cursor: pointer;
+  border: 0; padding: 0; background: none;
+}
+.wheel-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  box-shadow: 0 30px 70px -22px rgba(0, 0, 0, 0.9);
+  outline: 1px solid rgba(241, 236, 227, 0.08);
+  transition: outline-color 0.5s var(--ease);
+}
+/* a capa que está de frente ganha o contorno âmbar */
+.wheel-item.is-front img { outline: 1px solid rgba(184, 131, 80, 0.65); }
+.wheel-item:focus-visible img { outline: 2px solid var(--amber); }
+
+/* legenda da capa da frente */
+.wheel-caption {
+  position: absolute; bottom: clamp(3.5rem, 9vh, 6rem);
+  text-align: center;
+  padding: 0 1.5rem;
+}
+.wheel-caption .wc-title {
+  display: block;
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3.4vw, 2.5rem);
+  line-height: 1.1;
+  color: var(--ivory);
+}
+.wheel-caption .wc-meta {
+  display: block; margin-top: 0.55rem;
+  font-size: 0.62rem; letter-spacing: 0.26em; text-transform: uppercase;
+  color: var(--stone);
+}
+.wheel-caption .wc-hint {
+  display: block; margin-top: 1.1rem;
+  font-size: 0.56rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--amber); opacity: 0.8;
+}
+
+/* celular: roda menor, pista um pouco mais curta */
+@media (max-width: 760px) {
+  .wheel-stage { height: 280vh; }
+  :root { --wheel-card: clamp(150px, 46vmin, 220px); }
+}
+
+/* quem pediu menos animação no sistema não vê a roda:
+   a discografia em lista logo abaixo segue completa */
+@media (prefers-reduced-motion: reduce) {
+  .wheel-stage { display: none; }
+}

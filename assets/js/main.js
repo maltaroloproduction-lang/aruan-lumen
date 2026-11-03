@@ -342,6 +342,30 @@
     const y = $("#year");          if (y) y.textContent = new Date().getFullYear();
   }
 
+  /* --- 3.13 a roda 3D dos álbuns --- */
+  function renderWheel() {
+    const wheel = $("#wheel");
+    if (!wheel) return;
+    wheel.innerHTML = ALBUMS.map((a, i) =>
+      '<button class="wheel-item" type="button" data-i="' + i + '" data-id="' + a.id + '" ' +
+              'aria-label="' + a.title + '">' +
+        '<img src="' + a.cover + '" alt="" loading="lazy" decoding="async">' +
+      "</button>"
+    ).join("");
+
+    /* clique numa capa: desce até o álbum na lista e abre as faixas */
+    $$(".wheel-item").forEach((el) => {
+      el.addEventListener("click", () => {
+        const alvo = $('.album[data-id="' + el.dataset.id + '"]');
+        if (!alvo) return;
+        alvo.scrollIntoView({ behavior: "smooth", block: "center" });
+        if (alvo.getAttribute("aria-expanded") !== "true") {
+          setTimeout(() => alvo.click(), 650);
+        }
+      });
+    });
+  }
+
   /* roda tudo de uma vez */
   function renderAll() {
     renderMarquee();
@@ -355,6 +379,7 @@
     renderMosaic();
     renderPins();
     renderFooter();
+    renderWheel();
   }
 
 
@@ -484,8 +509,67 @@
   window.addEventListener("scroll", () => {
     if (travado) return;
     travado = true;
-    requestAnimationFrame(() => { onScroll(); travado = false; });
+    requestAnimationFrame(() => {
+      try { onScroll(); girarRoda(); }
+      finally { travado = false; }   /* um erro nunca trava o scroll pra sempre */
+    });
   }, { passive: true });
+
+
+  /* ===========================================================
+     7b. A RODA — o scroll da pista vira rotação
+     =========================================================== */
+  const stage = $("#wheelStage");
+
+  function girarRoda() {
+    if (!stage) return;
+    const wheel = $("#wheel");
+    const itens = $$(".wheel-item");
+    if (!wheel || !itens.length) return;
+
+    const n    = itens.length;
+    const step = 360 / n;                     /* ângulo entre capas  */
+
+    /* progresso dentro da pista: 0 no topo, 1 no fim */
+    const r     = stage.getBoundingClientRect();
+    const pista = stage.offsetHeight - window.innerHeight;
+    const prog  = Math.min(1, Math.max(0, -r.top / (pista || 1)));
+
+    /* a roda gira do primeiro ao último álbum */
+    const rot = prog * step * (n - 1);
+    wheel.style.transform = "rotateY(" + (-rot) + "deg)";
+
+    /* o raio é proporcional ao tamanho real da capa na tela */
+    const raio = (itens[0].offsetWidth || 240) * 1.6;
+
+    /* qual capa está de frente agora */
+    const frente = Math.round(rot / step) % n;
+
+    itens.forEach((el, i) => {
+      el.style.transform =
+        "rotateY(" + (i * step) + "deg) translateZ(" + raio + "px)";
+
+      /* quanto mais longe da frente, mais apagada a capa */
+      let dist = Math.abs(i * step - rot);
+      dist = Math.min(dist, 360 - dist) / 180;          /* 0 = frente */
+      el.style.opacity = String(1 - dist * 0.75);
+      el.style.filter  = "brightness(" + (1 - dist * 0.55) + ")";
+      el.classList.toggle("is-front", i === frente);
+      el.tabIndex = i === frente ? 0 : -1;              /* teclado: só a da frente */
+    });
+
+    /* legenda da capa da frente */
+    const a = ALBUMS[frente];
+    if (a) {
+      const titulo = $("#wcTitle"), meta = $("#wcMeta");
+      if (titulo.textContent !== a.title) {
+        titulo.textContent = a.title;
+        meta.textContent =
+          t(a.type === "single" ? "music.single" : "music.album") +
+          " · " + a.lang + " · " + (a.year || "");
+      }
+    }
+  }
 
 
   /* ===========================================================
@@ -575,6 +659,8 @@
   applyLang();          /* monta todo o conteúdo no idioma certo */
   observarReveals();    /* liga as animações de entrada */
   onScroll();           /* estado inicial da nav e do trilho */
+  girarRoda();          /* posição inicial da roda */
+  window.addEventListener("resize", girarRoda);
 
   /* libera a animação de abertura do hero */
   requestAnimationFrame(() => document.body.classList.add("is-ready"));

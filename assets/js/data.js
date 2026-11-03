@@ -78,6 +78,7 @@ const I18N = {
     "music.tracks": "Tracklist",
     "music.notracks": "Tracklist to be confirmed.",
     "music.album":   "Album",
+    "wheel.hint":    "Scroll to spin · tap the cover to open",
     "music.single":  "Single",
     "music.archive.title": "From the archive",
     "music.archive.intro": "Concepts still taking shape inside the creative universe — not yet released.",
@@ -184,6 +185,7 @@ const I18N = {
     "music.tracks": "Faixas",
     "music.notracks": "Faixas a confirmar.",
     "music.album":   "Álbum",
+    "wheel.hint":    "Role para girar · toque na capa para abrir",
     "music.single":  "Single",
     "music.archive.title": "Do arquivo",
     "music.archive.intro": "Conceitos ainda tomando forma dentro do universo criativo — ainda não lançados.",
@@ -491,12 +493,12 @@ const ARCHIVE = [
    com o caminho delas em "src".
    ------------------------------------------------------------- */
 const VISUALS = [
-  { id: "v1", size: "tall", src: "assets/img/visuals/aruan-olhar.webp",           label: "Aruan Lumen — retrato oficial",         note: "Portrait" },
+  { id: "v1", size: "tall", src: "assets/img/covers/meu-caminho-de-volta.webp",   label: "Meu Caminho de Volta — capa oficial",   note: "2026" },
   { id: "v2", size: "wide", src: "assets/img/covers/where-the-broken-shine.webp", label: "Where the Broken Shine — capa oficial", note: "2025" },
-  { id: "v3", size: "sq",   src: "assets/img/visuals/aruan-tatuagem.webp",        label: "Aruan Lumen — série editorial",         note: "Editorial" },
-  { id: "v4", size: "sq",   src: "assets/img/covers/stay.webp",                   label: "STAY — capa oficial",                   note: "2026" },
-  { id: "v5", size: "wide", src: "assets/img/covers/meu-caminho-de-volta.webp",   label: "Meu Caminho de Volta — capa oficial",   note: "2026" },
-  { id: "v6", size: "tall", src: "assets/img/visuals/aruan-frontal.webp",         label: "Aruan Lumen — série editorial",         note: "Editorial" }
+  { id: "v3", size: "sq",   src: "assets/img/covers/stay.webp",                   label: "STAY — capa oficial",                   note: "2026" },
+  { id: "v4", size: "sq",   src: "assets/img/covers/where-silence-lives.webp",    label: "Where Silence Lives — capa oficial",    note: "2026" },
+  { id: "v5", size: "wide", src: "assets/img/covers/anatomia-do-silencio.webp",   label: "Anatomia do Silêncio — capa oficial",   note: "2026" },
+  { id: "v6", size: "tall", src: "assets/img/covers/the-rope-and-the-scar.webp",  label: "The Rope And The Scar — capa oficial",  note: "2026" }
 ];
 
 
