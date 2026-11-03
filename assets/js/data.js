@@ -479,12 +479,12 @@ const RELEASE_DATE = null;
    com o caminho delas em "src".
    ------------------------------------------------------------- */
 const VISUALS = [
-  { id: "v1", size: "tall", src: "assets/img/covers/meu-caminho-de-volta.webp",   label: "Meu Caminho de Volta — capa oficial",   note: "2026" },
-  { id: "v2", size: "wide", src: "assets/img/covers/where-the-broken-shine.webp", label: "Where the Broken Shine — capa oficial", note: "2025" },
-  { id: "v3", size: "sq",   src: "assets/img/covers/stay.webp",                   label: "STAY — capa oficial",                   note: "2026" },
-  { id: "v4", size: "sq",   src: "assets/img/covers/where-silence-lives.webp",    label: "Where Silence Lives — capa oficial",    note: "2026" },
-  { id: "v5", size: "wide", src: "assets/img/covers/anatomia-do-silencio.webp",   label: "Anatomia do Silêncio — capa oficial",   note: "2026" },
-  { id: "v6", size: "tall", src: "assets/img/covers/the-rope-and-the-scar.webp",  label: "The Rope And The Scar — capa oficial",  note: "2026" }
+  { id: "v1", size: "tall", src: "assets/img/visuals/aruan-poltrona-pb.webp",     label: "Aruan Lumen — retrato editorial",       note: "P&B" },
+  { id: "v2", size: "wide", src: "assets/img/visuals/aruan-linho-violao.webp",    label: "Aruan Lumen — com o violão",            note: "Editorial" },
+  { id: "v3", size: "sq",   src: "assets/img/covers/meu-caminho-de-volta.webp",   label: "Meu Caminho de Volta — capa oficial",   note: "2026" },
+  { id: "v4", size: "sq",   src: "assets/img/covers/where-the-broken-shine.webp", label: "Where the Broken Shine — capa oficial", note: "2025" },
+  { id: "v5", size: "wide", src: "assets/img/visuals/aruan-industrial.webp",      label: "Aruan Lumen — estúdio",                 note: "Editorial" },
+  { id: "v6", size: "tall", src: "assets/img/portraits/aruan-janela.webp",        label: "Aruan Lumen — luz de janela",           note: "Editorial" }
 ];
 
 

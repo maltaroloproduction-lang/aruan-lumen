@@ -97,16 +97,16 @@
   function renderPhotos() {
     const hero = $("#heroMedia");
     if (hero) {
-      /* Fotografia oficial: retrato P&B na poltrona */
+      /* Fotografia oficial: P&B, abraçado ao violão */
       hero.innerHTML =
-        '<img src="assets/img/hero/aruan-poltrona.webp" alt="Aruan Lumen" ' +
+        '<img src="assets/img/hero/aruan-violao-pb.webp" alt="Aruan Lumen" ' +
         'fetchpriority="high" decoding="async">';
     }
     const port = $("#portrait");
     if (port) {
-      /* Fotografia oficial: luz natural de janela — a direção do dossiê */
+      /* Fotografia oficial: camiseta preta na parede dourada */
       port.innerHTML =
-        '<img src="assets/img/portraits/aruan-janela.webp" alt="Aruan Lumen" ' +
+        '<img src="assets/img/portraits/aruan-parede-dourada.webp" alt="Aruan Lumen" ' +
         'loading="lazy" decoding="async">';
     }
   }

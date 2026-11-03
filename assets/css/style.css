@@ -382,35 +382,36 @@ section { position: relative; }
   overflow: hidden;
 }
 
-/* A fotografia oficial e VERTICAL (768x1376).
-   No desktop ela vira um painel a direita, quase 1:1 em pixels
-   (nitidez maxima), e a tipografia vive na area escura a esquerda.
-   No celular ela volta a ocupar a tela inteira. */
+/* A fotografia oficial do hero e HORIZONTAL (P&B, violao).
+   Ela ocupa a tela inteira; o espaco negativo da foto fica a
+   direita — e e la que mora a tipografia. */
 .hero-media {
-  position: absolute; top: 0; right: 0; bottom: 0; z-index: 0;
-  width: min(46vw, 760px);
+  position: absolute; inset: 0; z-index: 0;
 }
 .hero-media .ph, .hero-media img {
   width: 100%; height: 100%;
-  object-fit: cover; object-position: 50% 18%;
+  object-fit: cover; object-position: 38% 28%;
   border: 0;
 }
 .hero-media .ph { border: 0; }
-/* funde a borda esquerda e a base da foto com o fundo */
+/* escurece a faixa direita (zona do texto) e a base */
 .hero-media::after {
   content: ""; position: absolute; inset: 0;
   background:
-    linear-gradient(to right, #101010 0%, rgba(16,16,16,0.55) 14%, transparent 42%),
-    linear-gradient(to top, rgba(16,16,16,0.92) 0%, transparent 34%),
-    linear-gradient(to bottom, rgba(16,16,16,0.55) 0%, transparent 18%);
+    linear-gradient(to left, rgba(16,16,16,0.88) 0%, rgba(16,16,16,0.45) 30%, transparent 58%),
+    linear-gradient(to top, rgba(16,16,16,0.85) 0%, transparent 38%);
 }
 
 /* veu geral bem leve, so pra assentar o grao */
 .hero-veil {
   position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(to top, rgba(16,16,16,0.45) 0%, transparent 30%);
+  background: linear-gradient(to top, rgba(16,16,16,0.40) 0%, transparent 28%);
   pointer-events: none;
 }
+
+/* o bloco de texto vive no espaco negativo, a direita */
+.hero-inner { display: flex; justify-content: flex-end; }
+.hero-text  { max-width: min(560px, 48%); }
 
 .hero-inner {
   position: relative; z-index: 2;
@@ -835,14 +836,15 @@ body.is-ready .f4 { transition-delay: 1.10s; }
   .burger    { display: block; }
   .nav { padding-top: 1rem; padding-bottom: 1rem; }
 
-  /* hero no vertical: a foto vertical preenche a tela inteira */
-  .hero-media { width: 100%; left: 0; }
-  .hero-media .ph, .hero-media img { object-position: 50% 20%; }
+  /* hero no vertical: recorte centrado no rosto, texto embaixo */
+  .hero-media .ph, .hero-media img { object-position: 46% 25%; }
   .hero-media::after {
     background: linear-gradient(to top,
-      rgba(16,16,16,0.97) 0%, rgba(16,16,16,0.60) 40%,
-      rgba(16,16,16,0.20) 70%, rgba(16,16,16,0.55) 100%);
+      rgba(16,16,16,0.97) 0%, rgba(16,16,16,0.62) 38%,
+      rgba(16,16,16,0.18) 70%, rgba(16,16,16,0.50) 100%);
   }
+  .hero-inner { justify-content: flex-start; }
+  .hero-text  { max-width: 100%; }
   .hero-name .l2 { padding-left: 0; }
   .hero-tagline { letter-spacing: 0.22em; }
   .hero-ctas { flex-direction: column; align-items: stretch; }
