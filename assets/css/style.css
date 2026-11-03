@@ -1305,3 +1305,126 @@ body.is-ready .f4 { transition-delay: 1.10s; }
 @media (prefers-reduced-motion: reduce) {
   .wheel-stage { display: none; }
 }
+
+
+/* =============================================================
+   22. O ÁLBUM DE MEMÓRIAS — galeria paginada que folheia em 3D
+   -------------------------------------------------------------
+   Cada foto vive numa "página" de papel marfim, como um retrato
+   colado num álbum antigo. Avançar vira a página pela lombada
+   esquerda; voltar desvira. Funciona por setas, swipe e teclado.
+   ============================================================= */
+.memoir {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+/* o palco 3D onde as páginas viram */
+.memoir-stage {
+  position: relative;
+  perspective: 1800px;
+  aspect-ratio: 4 / 3;
+  user-select: none;
+  touch-action: pan-y;          /* swipe horizontal é nosso; vertical é da página */
+}
+
+/* cada página do álbum */
+.mem-page {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  padding: clamp(10px, 2vw, 18px);
+  background:
+    linear-gradient(120deg, rgba(16,16,16,0.05) 0%, transparent 30%),
+    var(--ivory);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.35) inset,
+    0 30px 70px -25px rgba(0, 0, 0, 0.85);
+  transform-origin: left center;         /* a lombada do álbum */
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  visibility: hidden;                    /* só a página atual e a de baixo aparecem */
+  transition: transform 0.85s var(--ease);
+  will-change: transform;
+}
+.mem-page.is-under { visibility: visible; z-index: 1; }
+.mem-page.is-top   { visibility: visible; z-index: 2; }
+.mem-page.is-flip  { transform: rotateY(-102deg); }   /* página levantada */
+
+/* a fotografia "colada" na página */
+.mem-photo {
+  flex: 1; min-height: 0;
+  overflow: hidden;
+  background: #0e0d0c;
+  cursor: zoom-in;
+  border: 0; padding: 0;
+}
+.mem-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* fotos alternam uma inclinação sutil, como coladas à mão */
+.mem-page:nth-child(odd)  .mem-photo { transform: rotate(0.5deg); }
+.mem-page:nth-child(even) .mem-photo { transform: rotate(-0.5deg); }
+
+/* a legenda escrita embaixo do retrato */
+.mem-caption {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 1rem;
+  padding: clamp(0.7rem, 1.6vw, 1rem) clamp(0.2rem, 1vw, 0.5rem) 0;
+}
+.mem-caption em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(0.95rem, 1.8vw, 1.2rem);
+  color: #2a2724;                       /* tinta sobre papel marfim */
+}
+.mem-caption small {
+  font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: #8a8378; white-space: nowrap;
+}
+
+/* navegação: setas + contador */
+.memoir-nav {
+  display: flex; align-items: center; justify-content: center;
+  gap: clamp(1.4rem, 4vw, 2.5rem);
+  margin-top: clamp(1.6rem, 3.5vw, 2.4rem);
+}
+.memoir-nav button {
+  width: 52px; height: 52px; position: relative;
+  border: 1px solid var(--hairline); border-radius: 50%;
+  transition: border-color 0.5s var(--ease), background 0.5s var(--ease);
+}
+.memoir-nav button:hover,
+.memoir-nav button:focus-visible { border-color: var(--amber); background: var(--amber-soft); }
+.memoir-nav button::before {
+  content: ""; position: absolute; top: 50%; left: 50%;
+  width: 9px; height: 9px;
+  border-left: 1px solid var(--ivory);
+  border-bottom: 1px solid var(--ivory);
+}
+.memoir-nav .mn-prev::before { transform: translate(-32%, -50%) rotate(45deg); }
+.memoir-nav .mn-next::before { transform: translate(-68%, -50%) rotate(-135deg); }
+
+.memoir-count {
+  font-size: 0.72rem; letter-spacing: 0.3em;
+  color: var(--stone);
+  font-variant-numeric: tabular-nums;
+  min-width: 7ch; text-align: center;
+}
+.memoir-count b { color: var(--amber); font-weight: 500; }
+
+.memoir-hint {
+  margin: 1.4rem 0 0; text-align: center;
+  font-size: 0.56rem; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--stone); opacity: 0.7;
+}
+
+/* menos animação no sistema: a página troca sem virar */
+@media (prefers-reduced-motion: reduce) {
+  .mem-page { transition: none; }
+}
+@media (max-width: 760px) {
+  .memoir-stage { aspect-ratio: 3.4 / 3; }
+  .memoir-hint { display: none; }
+}

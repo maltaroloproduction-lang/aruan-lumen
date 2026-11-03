@@ -299,21 +299,101 @@
     });
   }
 
-  /* --- 3.10 mosaico de visuais --- */
-  function renderMosaic() {
-    const box = $("#mosaic");
-    if (!box) return;
+  /* --- 3.10 o álbum de memórias (galeria paginada) --- */
+  let memIdx = 0;          /* página aberta          */
+  let memOcupado = false;  /* trava durante a virada */
 
-    box.innerHTML = VISUALS.map((v, i) =>
-      '<button class="tile ' + v.size + '" type="button" data-i="' + i + '" ' +
-              'aria-label="' + t("visuals.zoom") + ': ' + v.label + '">' +
-        media(v.src, v.label, v.label, v.note, "Visual") +
-      "</button>"
+  function renderMemoir() {
+    const stage = $("#memStage");
+    if (!stage) return;
+
+    stage.innerHTML = VISUALS.map((v, i) =>
+      '<article class="mem-page" data-i="' + i + '">' +
+        '<button class="mem-photo" type="button" aria-label="' + t("visuals.zoom") + '">' +
+          '<img src="' + v.src + '" alt="' + v.label + '" loading="lazy" decoding="async">' +
+        "</button>" +
+        '<p class="mem-caption"><em>' + v.label + "</em><small>" + (v.note || "") + "</small></p>" +
+      "</article>"
     ).join("");
 
-    $$(".tile").forEach((el) =>
-      el.addEventListener("click", () => abrirLightbox(VISUALS[+el.dataset.i]))
+    /* clicar na foto abre o lightbox que já existe */
+    $$(".mem-photo", stage).forEach((el) =>
+      el.addEventListener("click", () =>
+        abrirLightbox(VISUALS[+el.closest(".mem-page").dataset.i]))
     );
+
+    memIdx = Math.min(memIdx, VISUALS.length - 1);
+    memMostra();
+  }
+
+  /* mostra a página atual (sem animação) e atualiza o contador */
+  function memMostra() {
+    $$(".mem-page").forEach((p, i) => {
+      p.classList.remove("is-top", "is-under", "is-flip");
+      if (i === memIdx) p.classList.add("is-top");
+    });
+    const c = $("#memCount");
+    if (c) c.innerHTML = "<b>" + String(memIdx + 1).padStart(2, "0") + "</b> / " +
+                         String(VISUALS.length).padStart(2, "0");
+  }
+
+  /* vira a página: dir +1 avança, -1 volta */
+  function memVira(dir) {
+    if (memOcupado) return;
+    const paginas = $$(".mem-page");
+    const alvoIdx = (memIdx + dir + paginas.length) % paginas.length;
+    const atual = paginas[memIdx], alvo = paginas[alvoIdx];
+    if (!atual || !alvo || atual === alvo) return;
+    memOcupado = true;
+
+    if (dir > 0) {
+      /* avançar: a página atual levanta pela lombada e revela a próxima */
+      alvo.classList.add("is-under");
+      atual.classList.add("is-flip");
+      setTimeout(fim, 870);
+    } else {
+      /* voltar: a página anterior desvira por cima da atual */
+      atual.classList.add("is-under");
+      alvo.classList.add("is-flip", "is-top");
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => alvo.classList.remove("is-flip"))
+      );
+      setTimeout(fim, 870);
+    }
+
+    function fim() {
+      memIdx = alvoIdx;
+      memMostra();
+      memOcupado = false;
+    }
+  }
+
+  /* setas, teclado e swipe */
+  function ligarMemoir() {
+    const prev = $("#memPrev"), next = $("#memNext"), stage = $("#memStage");
+    if (!stage) return;
+    prev.addEventListener("click", () => memVira(-1));
+    next.addEventListener("click", () => memVira(1));
+
+    /* teclado só quando o álbum está na tela */
+    let visivel = false;
+    new IntersectionObserver((e) => { visivel = e[0].isIntersecting; }, { threshold: 0.3 })
+      .observe(stage);
+    document.addEventListener("keydown", (e) => {
+      if (!visivel || lb.classList.contains("is-open")) return;
+      if (e.key === "ArrowRight") memVira(1);
+      if (e.key === "ArrowLeft")  memVira(-1);
+    });
+
+    /* swipe no celular */
+    let x0 = null;
+    stage.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+    stage.addEventListener("touchend", (e) => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 45) memVira(dx < 0 ? 1 : -1);
+      x0 = null;
+    }, { passive: true });
   }
 
   /* --- 3.11 cidades dos ouvintes --- */
@@ -369,7 +449,7 @@
     renderFeatured();
     renderCountdown();
     renderDisc();
-    renderMosaic();
+    renderMemoir();
     renderPins();
     renderFooter();
     renderWheel();
@@ -653,6 +733,7 @@
   observarReveals();    /* liga as animações de entrada */
   onScroll();           /* estado inicial da nav e do trilho */
   girarRoda();          /* posição inicial da roda */
+  ligarMemoir();        /* setas, teclado e swipe do álbum */
   window.addEventListener("resize", girarRoda);
 
   /* libera a animação de abertura do hero */

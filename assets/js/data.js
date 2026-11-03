@@ -86,6 +86,7 @@ const I18N = {
     "visuals.title": "Photography is part of the song.",
     "visuals.intro": "The official cover art of every release — with portraits and editorial series joining as the archive grows.",
     "visuals.zoom": "Open image",
+    "visuals.hint": "Swipe, use the arrows or your keyboard",
 
     /* cartas */
     "letters.label": "Letters from Aruan",
@@ -191,6 +192,7 @@ const I18N = {
     "visuals.title": "A fotografia faz parte da canção.",
     "visuals.intro": "As capas oficiais de cada lançamento — retratos e séries editoriais entram conforme o arquivo cresce.",
     "visuals.zoom": "Abrir imagem",
+    "visuals.hint": "Deslize, use as setas ou o teclado",
 
     /* cartas */
     "letters.label": "Cartas do Aruan",
