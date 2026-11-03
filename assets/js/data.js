@@ -498,7 +498,7 @@ const PLATFORMS = [
   { name: "Apple Music",   url: "https://music.apple.com/us/artist/aruan-lumen/1861380796" },
   { name: "YouTube Music", url: "https://music.youtube.com/channel/UCVdAnzR-u2N1jM60nbhsLNA" },
   { name: "Deezer",        url: "https://www.deezer.com/artist/361880382" },
-  { name: "Amazon Music",  url: "" }
+  { name: "Amazon Music",  url: "https://music.amazon.com/artists/B0G6YJSW5G" }
 ];
 
 const SOCIALS = [
