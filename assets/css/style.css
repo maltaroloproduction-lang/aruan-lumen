@@ -1350,18 +1350,21 @@ body.is-ready .f4 { transition-delay: 1.10s; }
 .mem-page.is-top   { visibility: visible; z-index: 2; }
 .mem-page.is-flip  { transform: rotateY(-102deg); }   /* página levantada */
 
-/* a fotografia "colada" na página */
+/* a fotografia "colada" na página.
+   object-fit: contain = o retrato INTEIRO aparece, com o papel
+   marfim nas bordas — nenhuma foto é cortada, como num álbum real. */
 .mem-photo {
   flex: 1; min-height: 0;
-  overflow: hidden;
-  background: #0e0d0c;
+  background: transparent;
   cursor: zoom-in;
   border: 0; padding: 0;
 }
 .mem-photo img {
   width: 100%; height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
+  /* sombra que acompanha o recorte real da foto */
+  filter: drop-shadow(0 10px 22px rgba(16, 16, 16, 0.35));
 }
 /* fotos alternam uma inclinação sutil, como coladas à mão */
 .mem-page:nth-child(odd)  .mem-photo { transform: rotate(0.5deg); }
