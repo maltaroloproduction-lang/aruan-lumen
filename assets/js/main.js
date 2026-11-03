@@ -368,22 +368,47 @@
     }
   }
 
+  /* --- folhear automático ---
+     O álbum vira a página sozinho a cada 5 segundos, mas só quando:
+     está visível na tela, a aba está ativa, o mouse não está em
+     cima e o lightbox está fechado. Interagir reinicia a contagem. */
+  let memVisivel = false;
+  let memHover   = false;
+  let memTimer   = null;
+  const MEM_RITMO = 5000;
+
+  function memAutoTick() {
+    if (!memVisivel || memHover || document.hidden) return;
+    if (lb.classList.contains("is-open") || memOcupado) return;
+    /* respeita quem pediu menos animação no sistema */
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    memVira(1);
+  }
+
+  function memAutoReinicia() {
+    clearInterval(memTimer);
+    memTimer = setInterval(memAutoTick, MEM_RITMO);
+  }
+
   /* setas, teclado e swipe */
   function ligarMemoir() {
     const prev = $("#memPrev"), next = $("#memNext"), stage = $("#memStage");
     if (!stage) return;
-    prev.addEventListener("click", () => memVira(-1));
-    next.addEventListener("click", () => memVira(1));
+    prev.addEventListener("click", () => { memVira(-1); memAutoReinicia(); });
+    next.addEventListener("click", () => { memVira(1);  memAutoReinicia(); });
 
     /* teclado só quando o álbum está na tela */
-    let visivel = false;
-    new IntersectionObserver((e) => { visivel = e[0].isIntersecting; }, { threshold: 0.3 })
+    new IntersectionObserver((e) => { memVisivel = e[0].isIntersecting; }, { threshold: 0.3 })
       .observe(stage);
     document.addEventListener("keydown", (e) => {
-      if (!visivel || lb.classList.contains("is-open")) return;
-      if (e.key === "ArrowRight") memVira(1);
-      if (e.key === "ArrowLeft")  memVira(-1);
+      if (!memVisivel || lb.classList.contains("is-open")) return;
+      if (e.key === "ArrowRight") { memVira(1);  memAutoReinicia(); }
+      if (e.key === "ArrowLeft")  { memVira(-1); memAutoReinicia(); }
     });
+
+    /* mouse em cima = pausa (a pessoa está olhando) */
+    stage.addEventListener("mouseenter", () => { memHover = true; });
+    stage.addEventListener("mouseleave", () => { memHover = false; });
 
     /* swipe no celular */
     let x0 = null;
@@ -391,7 +416,7 @@
     stage.addEventListener("touchend", (e) => {
       if (x0 === null) return;
       const dx = e.changedTouches[0].clientX - x0;
-      if (Math.abs(dx) > 45) memVira(dx < 0 ? 1 : -1);
+      if (Math.abs(dx) > 45) { memVira(dx < 0 ? 1 : -1); memAutoReinicia(); }
       x0 = null;
     }, { passive: true });
   }
@@ -734,6 +759,7 @@
   onScroll();           /* estado inicial da nav e do trilho */
   girarRoda();          /* posição inicial da roda */
   ligarMemoir();        /* setas, teclado e swipe do álbum */
+  memAutoReinicia();    /* liga o folhear automático */
   window.addEventListener("resize", girarRoda);
 
   /* libera a animação de abertura do hero */
