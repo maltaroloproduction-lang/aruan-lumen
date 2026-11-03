@@ -80,8 +80,6 @@ const I18N = {
     "music.album":   "Album",
     "wheel.hint":    "Scroll to spin · tap the cover to open",
     "music.single":  "Single",
-    "music.archive.title": "From the archive",
-    "music.archive.intro": "Concepts still taking shape inside the creative universe — not yet released.",
 
     /* visuais */
     "visuals.label": "Visuals",
@@ -187,8 +185,6 @@ const I18N = {
     "music.album":   "Álbum",
     "wheel.hint":    "Role para girar · toque na capa para abrir",
     "music.single":  "Single",
-    "music.archive.title": "Do arquivo",
-    "music.archive.intro": "Conceitos ainda tomando forma dentro do universo criativo — ainda não lançados.",
 
     /* visuais */
     "visuals.label": "Visuais",
@@ -474,16 +470,6 @@ const FEATURED_ID = "meu-caminho-de-volta";
    Deixe null e o contador fica escondido automaticamente. */
 const RELEASE_DATE = null;
 
-
-/* -------------------------------------------------------------
-   3. DO ARQUIVO — conceitos ainda não lançados
-   (Os demais títulos do dossiê viraram músicas ou álbuns:
-    Anatomia do Silêncio é álbum; Faz Sentido Agora, Leve e
-    Ainda Estamos Aqui / We're Still Here viraram faixas.)
-   ------------------------------------------------------------- */
-const ARCHIVE = [
-  "Você Se Conhece?", "Sala de Espera", "Naked Soul"
-];
 
 
 /* -------------------------------------------------------------

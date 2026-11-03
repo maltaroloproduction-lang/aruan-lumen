@@ -299,12 +299,6 @@
     });
   }
 
-  /* --- 3.9 do arquivo --- */
-  function renderArchive() {
-    const box = $("#archiveList");
-    if (box) box.innerHTML = ARCHIVE.map((x) => "<li>" + x + "</li>").join("");
-  }
-
   /* --- 3.10 mosaico de visuais --- */
   function renderMosaic() {
     const box = $("#mosaic");
@@ -375,7 +369,6 @@
     renderFeatured();
     renderCountdown();
     renderDisc();
-    renderArchive();
     renderMosaic();
     renderPins();
     renderFooter();
