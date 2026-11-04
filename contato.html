@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contato profissional — Aruan Lumen</title>
+<meta name="description" content="Contato profissional de Aruan Lumen: imprensa, playlists, parcerias e licenciamento.">
+<link rel="canonical" href="https://aruanlumen.com/contato.html">
+<meta name="theme-color" content="#101010">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .page-head { padding: 7rem 0 0; }
+  .back { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); }
+  .back:hover { color: var(--amber); }
+  .contact-form { max-width: 620px; margin-top: var(--gap-l); }
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<main class="wrap" style="padding-bottom: 7rem">
+
+  <header class="page-head">
+    <a class="back" href="/">&larr; aruanlumen.com</a>
+    <p class="label" style="margin-top:3rem">Contato profissional · Professional contact</p>
+    <h1 class="t-h1">Vamos conversar.</h1>
+    <p class="lead" style="margin-top:1.2rem">
+      Imprensa, playlists, parcerias e licenciamento. Respondemos pelo e-mail
+      que você informar. · Press, playlists, partnerships and licensing — we
+      reply to the e-mail you provide.
+    </p>
+  </header>
+
+  <form class="form contact-form" id="cform" novalidate>
+    <!-- honeypot: humano não vê; robô preenche e é descartado -->
+    <input type="text" name="website" id="cWeb" tabindex="-1" autocomplete="off"
+           aria-hidden="true" style="position:absolute;left:-9999px;height:0;width:0;opacity:0">
+
+    <div class="field">
+      <label for="cName">Nome · Name</label>
+      <input id="cName" type="text" autocomplete="name" required>
+    </div>
+    <div class="field">
+      <label for="cMail">E-mail</label>
+      <input id="cMail" type="email" autocomplete="email" required>
+    </div>
+    <div class="field">
+      <label for="cSubj">Assunto · Subject</label>
+      <select id="cSubj">
+        <option value="imprensa">Imprensa · Press</option>
+        <option value="playlist">Playlists & curadoria</option>
+        <option value="parceria">Parceria · Partnership</option>
+        <option value="licenciamento">Licenciamento · Licensing</option>
+        <option value="outro">Outro · Other</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="cMsg">Mensagem · Message</label>
+      <textarea id="cMsg" rows="6" required
+        style="width:100%;padding:0.9rem 1rem;background:rgba(241,236,227,0.035);
+               border:1px solid var(--hairline);color:var(--ivory);
+               font-family:var(--sans);font-size:0.98rem;resize:vertical"></textarea>
+    </div>
+    <button class="btn btn-primary" type="submit">Enviar · Send</button>
+    <p class="form-msg" id="cMsgStatus" role="status" aria-live="polite"></p>
+  </form>
+
+<script>
+/* Envia a mensagem pra /api/contact, que guarda no cofre privado. */
+(function () {
+  var form = document.getElementById("cform");
+  var status = document.getElementById("cMsgStatus");
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    var email = document.getElementById("cMail").value.trim();
+    var msg   = document.getElementById("cMsg").value.trim();
+    var nome  = document.getElementById("cName").value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) || msg.length < 10 || !nome) {
+      status.textContent = "Preencha nome, e-mail válido e uma mensagem (mínimo 10 caracteres).";
+      status.className = "form-msg err";
+      return;
+    }
+    var botao = form.querySelector("button");
+    botao.disabled = true;
+    try {
+      var r = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: nome, email: email,
+          subject: document.getElementById("cSubj").value,
+          message: msg,
+          website: document.getElementById("cWeb").value
+        })
+      });
+      if (r.ok) {
+        status.textContent = "Mensagem recebida. Retornaremos pelo seu e-mail. · Message received — we'll reply by e-mail.";
+        status.className = "form-msg ok";
+        form.reset();
+      } else {
+        status.textContent = "Algo falhou. Tente novamente em instantes.";
+        status.className = "form-msg err";
+      }
+    } catch (_) {
+      status.textContent = "Sem conexão com o servidor. Tente novamente.";
+      status.className = "form-msg err";
+    } finally {
+      botao.disabled = false;
+    }
+  });
+})();
+</script>
+</main>
+</body>
+</html>
