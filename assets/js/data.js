@@ -52,6 +52,7 @@ const I18N = {
     "featured.full": "Full album",
     "featured.soon": "Coming soon",
     "featured.tbc": "Release date to be confirmed",
+    "featured.play": "Press play — right here.",
     "cd.days": "Days", "cd.hours": "Hours", "cd.min": "Minutes",
 
     /* identidade sonora */
@@ -79,6 +80,7 @@ const I18N = {
     "music.notracks": "Tracklist to be confirmed.",
     "music.album":   "Album",
     "wheel.hint":    "Scroll to spin · tap the cover to open",
+    "wheel.skip":    "Skip to the full list ↓",
     "music.single":  "Single",
 
     /* visuais */
@@ -158,6 +160,7 @@ const I18N = {
     "featured.full": "Álbum completo",
     "featured.soon": "Em breve",
     "featured.tbc": "Data de lançamento a confirmar",
+    "featured.play": "Aperta o play — aqui mesmo.",
     "cd.days": "Dias", "cd.hours": "Horas", "cd.min": "Minutos",
 
     /* identidade sonora */
@@ -185,6 +188,7 @@ const I18N = {
     "music.notracks": "Faixas a confirmar.",
     "music.album":   "Álbum",
     "wheel.hint":    "Role para girar · toque na capa para abrir",
+    "wheel.skip":    "Pular para a lista completa ↓",
     "music.single":  "Single",
 
     /* visuais */

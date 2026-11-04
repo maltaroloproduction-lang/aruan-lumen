@@ -1202,7 +1202,7 @@ body.is-ready .f4 { transition-delay: 1.10s; }
    ============================================================= */
 .wheel-stage {
   /* altura da pista de rolagem: quanto maior, mais lenta a volta */
-  height: 340vh;
+  height: 300vh;
   position: relative;
   background: var(--ink-2);
 }
@@ -1296,7 +1296,7 @@ body.is-ready .f4 { transition-delay: 1.10s; }
 
 /* celular: roda menor, pista um pouco mais curta */
 @media (max-width: 760px) {
-  .wheel-stage { height: 280vh; }
+  .wheel-stage { height: 190vh; }
   :root { --wheel-card: clamp(150px, 46vmin, 220px); }
 }
 
@@ -1431,3 +1431,33 @@ body.is-ready .f4 { transition-delay: 1.10s; }
   .memoir-stage { aspect-ratio: 3.4 / 3; }
   .memoir-hint { display: none; }
 }
+
+
+/* =============================================================
+   23. OUVIR SEM SAIR — players embutidos (Deezer oficial)
+   ============================================================= */
+.featured-player { margin-top: var(--gap-m); }
+.featured-player .player-label {
+  margin: 0 0 0.7rem;
+  font-size: 0.62rem; font-weight: 500;
+  letter-spacing: 0.26em; text-transform: uppercase;
+  color: var(--amber);
+}
+.featured-player iframe,
+.album-player iframe {
+  display: block; border: 0;
+  outline: 1px solid var(--hairline-2);
+}
+.album-player { margin-top: var(--gap-m); }
+.album-player:empty { display: none; }
+
+/* atalho pra quem não quer girar a roda inteira */
+.wc-skip {
+  display: inline-block; margin-top: 0.9rem;
+  font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--stone); opacity: 0.75;
+  border-bottom: 1px solid var(--hairline);
+  padding-bottom: 2px;
+  transition: color 0.5s var(--ease), border-color 0.5s var(--ease);
+}
+.wc-skip:hover { color: var(--amber); border-color: var(--amber); }

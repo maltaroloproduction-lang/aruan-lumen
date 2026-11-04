@@ -17,9 +17,10 @@
      1. IDIOMA
      =========================================================== */
 
-  /* começa em inglês (decisão do dossiê), mas lembra a escolha
-     de quem já visitou antes */
-  let lang = localStorage.getItem("al-lang") || "en";
+  /* o idioma segue o navegador do visitante (pt-BR entra em
+     português), e a escolha manual de quem já visitou é lembrada */
+  let lang = localStorage.getItem("al-lang") ||
+    ((navigator.language || "").toLowerCase().startsWith("pt") ? "pt" : "en");
 
   /* busca um texto no dicionário */
   const t = (key) => (I18N[lang] && I18N[lang][key]) || I18N.en[key] || "";
@@ -182,6 +183,19 @@
     $("#featuredDesc").textContent  = album.desc[lang] || album.desc.en;
 
     $("#featuredActions").innerHTML = platformBtns(album.links);
+
+    /* o player: ouvir sem sair do site */
+    const dz = deezerId(album);
+    const pbox = $("#featuredPlayer");
+    if (pbox) {
+      pbox.innerHTML = dz
+        ? '<p class="player-label">' + t("featured.play") + "</p>" +
+          '<iframe title="Player — ' + album.title + '" ' +
+          'src="https://widget.deezer.com/widget/dark/album/' + dz + '?tracklist=false" ' +
+          'loading="lazy" allow="encrypted-media; clipboard-write" ' +
+          'width="100%" height="150" frameborder="0"></iframe>'
+        : "";
+    }
   }
 
   /* --- 3.7 contador do próximo lançamento ---
@@ -205,6 +219,12 @@
       "<div><b>" + dias  + "</b><small>" + t("cd.days")  + "</small></div>" +
       "<div><b>" + horas + "</b><small>" + t("cd.hours") + "</small></div>" +
       "<div><b>" + mins  + "</b><small>" + t("cd.min")   + "</small></div>";
+  }
+
+  /* extrai o id do álbum no Deezer a partir do link oficial */
+  function deezerId(album) {
+    const m = ((album.links && album.links.deezer) || "").match(/album\/(\d+)/);
+    return m ? m[1] : null;
   }
 
   /* transforma 215 segundos em "3:35" */
@@ -259,6 +279,7 @@
               '<h4 style="font-family:var(--sans);font-size:0.6rem;font-weight:600;letter-spacing:0.24em;' +
                  'text-transform:uppercase;color:var(--amber);margin:0 0 1.2rem">' + t("music.tracks") + "</h4>" +
               faixas +
+              '<div class="album-player" data-dz="' + (deezerId(a) || "") + '" data-title="' + a.title + '"></div>' +
               '<div class="album-links">' + platformBtns(a.links) + "</div>" +
             "</div>" +
           "</div>" +
@@ -291,9 +312,25 @@
           panel.style.maxHeight = "0px";
           panel.classList.remove("is-open");
         } else {
+          /* o player carrega só na primeira abertura do painel
+             (9 players de uma vez deixariam a página pesada) */
+          const slot = panel.querySelector(".album-player[data-dz]");
+          if (slot && slot.dataset.dz && !slot.dataset.pronto) {
+            slot.innerHTML =
+              '<iframe title="Player — ' + slot.dataset.title + '" ' +
+              'src="https://widget.deezer.com/widget/dark/album/' + slot.dataset.dz + '?tracklist=false" ' +
+              'allow="encrypted-media; clipboard-write" ' +
+              'width="100%" height="150" frameborder="0"></iframe>';
+            slot.dataset.pronto = "1";
+          }
           /* altura real do conteúdo, pra animação ficar suave */
           panel.style.maxHeight = panel.scrollHeight + "px";
           panel.classList.add("is-open");
+          /* o iframe do player ganha altura depois de carregar */
+          setTimeout(() => {
+            if (panel.classList.contains("is-open"))
+              panel.style.maxHeight = panel.scrollHeight + "px";
+          }, 400);
         }
       });
     });
