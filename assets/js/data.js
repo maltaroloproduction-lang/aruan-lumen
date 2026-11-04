@@ -56,6 +56,11 @@ const I18N = {
     "cd.days": "Days", "cd.hours": "Hours", "cd.min": "Minutes",
 
     /* identidade sonora */
+    "verses.label":  "Verses",
+    "verses.title":  "Maybe one of these songs knows what you carry.",
+    "verses.intro":  "If you got here carrying something — stay a while. These words were written for moments like yours.",
+    "verses.listen": "Hear this song",
+
     "sonic.label": "Sonic Identity",
     "sonic.title": "What the music is made of.",
     "sonic.intro": "Streaming is where music is consumed. This is where it is understood.",
@@ -164,6 +169,11 @@ const I18N = {
     "cd.days": "Dias", "cd.hours": "Horas", "cd.min": "Minutos",
 
     /* identidade sonora */
+    "verses.label":  "Versos",
+    "verses.title":  "Talvez uma dessas canções saiba o nome do que você carrega.",
+    "verses.intro":  "Se você chegou até aqui carregando alguma coisa — fica um pouco. Essas palavras foram escritas pra momentos como o seu.",
+    "verses.listen": "Ouvir essa canção",
+
     "sonic.label": "Identidade sonora",
     "sonic.title": "Do que a música é feita.",
     "sonic.intro": "O streaming é onde a música é consumida. Aqui é onde ela é compreendida.",
@@ -467,6 +477,36 @@ const ALBUMS = [
     status: "released"
   }
 ];
+
+/* -------------------------------------------------------------
+   2b. VERSOS — trechos oficiais de letras, no idioma original.
+   A ordem conta um arco: intimidade → memória → dor herdada →
+   não conseguir soltar → aquilo que permanece.
+   "albumId" liga o verso ao álbum na discografia (botão "ouvir").
+   ------------------------------------------------------------- */
+const VERSES = [
+  {
+    track: "Too Close", albumId: "stay",
+    lines: ["Your scent stays", "even after you leave.", "I learned your rhythm", "in what doesn't come back."]
+  },
+  {
+    track: "The Words You Left Behind", albumId: "where-the-broken-shine",
+    lines: ["Some memories don't ask permission,", "they don't question why they return.", "They arrive so soft, so tender,", "yet they know exactly where to touch."]
+  },
+  {
+    track: "Correntes Invisíveis", albumId: "meu-caminho-de-volta",
+    lines: ["Tem correntes que não fazem barulho,", "não deixam marcas sobre a pele.", "Mas aparecem na hora do jantar,", "no silêncio que pesa mais que a briga,", "no sorriso que pede licença pra existir."]
+  },
+  {
+    track: "The Rope", albumId: "the-rope-and-the-scar",
+    lines: ["Love that ends", "feels like a rope", "in your hands —", "you won't let go.", "Even bleeding, you still hold,", "like the pain will save your soul."]
+  },
+  {
+    track: "Little Things That Stay", albumId: "where-the-broken-shine",
+    lines: ["Some presences remain", "even in absence.", "And yours is one of them —", "it spreads through me", "like the scent", "of things meant to last."]
+  }
+];
+
 
 /* Qual projeto aparece no destaque da Home.
    Troque este id quando houver lançamento novo. */

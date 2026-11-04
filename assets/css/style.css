@@ -1461,3 +1461,62 @@ body.is-ready .f4 { transition-delay: 1.10s; }
   transition: color 0.5s var(--ease), border-color 0.5s var(--ease);
 }
 .wc-skip:hover { color: var(--amber); border-color: var(--amber); }
+
+
+/* =============================================================
+   24. VERSOS — as letras em tipografia editorial
+   ============================================================= */
+.verses {
+  background: var(--ink);
+  border-top: 1px solid var(--hairline-2);
+}
+.verses-title { max-width: 26ch; }
+.verses-intro { margin-top: 1.2rem; }
+
+.verses-flow {
+  margin-top: var(--gap-xl);
+  display: flex; flex-direction: column;
+  gap: clamp(4rem, 9vh, 7rem);
+}
+
+.verse { margin: 0; max-width: 34ch; }
+/* versos alternam o lado — a assimetria editorial da marca */
+.verse-right { margin-left: auto; text-align: right; }
+
+.verse blockquote { margin: 0; }
+.verse blockquote span {
+  display: block;
+  font-family: var(--serif);
+  font-size: clamp(1.35rem, 2.8vw, 2.1rem);
+  font-weight: 300; font-style: italic;
+  line-height: 1.5;
+  color: var(--ivory);
+}
+/* a última linha de cada verso acende em âmbar */
+.verse blockquote span:last-child { color: var(--amber); }
+
+.verse figcaption {
+  margin-top: 1.4rem;
+  display: flex; align-items: center; gap: 1.4rem;
+}
+.verse-right figcaption { justify-content: flex-end; }
+
+.verse-from {
+  font-size: 0.62rem; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--stone);
+}
+.verse-listen {
+  font-size: 0.62rem; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--amber);
+  border-bottom: 1px solid var(--amber-soft);
+  padding-bottom: 2px;
+  transition: border-color 0.5s var(--ease);
+}
+.verse-listen:hover { border-color: var(--amber); }
+
+@media (max-width: 760px) {
+  .verse, .verse-right { max-width: 100%; margin-left: 0; text-align: left; }
+  .verse-right figcaption { justify-content: flex-start; }
+  .verses-flow { gap: 3.5rem; }
+}

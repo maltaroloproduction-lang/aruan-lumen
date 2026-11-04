@@ -131,16 +131,16 @@
   function renderSonic() {
     const box = $("#sonicGrid");
     if (!box) return;
-    let html = "";
-    for (let i = 1; i <= 6; i++) {
-      html +=
-        '<article class="sonic-cell">' +
-          '<span class="sonic-n">0' + i + "</span>" +
-          "<h3>" + t("sonic." + i + ".t") + "</h3>" +
-          "<p>" + t("sonic." + i + ".p") + "</p>" +
-        "</article>";
-    }
-    box.innerHTML = html;
+    /* das 6 células originais ficaram as 3 que falam ao ouvinte;
+       as outras eram linguagem de produtor */
+    const essenciais = [1, 3, 5];
+    box.innerHTML = essenciais.map((n, i) =>
+      '<article class="sonic-cell">' +
+        '<span class="sonic-n">0' + (i + 1) + "</span>" +
+        "<h3>" + t("sonic." + n + ".t") + "</h3>" +
+        "<p>" + t("sonic." + n + ".p") + "</p>" +
+      "</article>"
+    ).join("");
   }
 
   /* --- 3.5 botões de plataforma ---
@@ -478,6 +478,16 @@
     const y = $("#year");          if (y) y.textContent = new Date().getFullYear();
   }
 
+  /* desce até um álbum na discografia e abre o painel de faixas */
+  function abrirAlbumNaLista(id) {
+    const alvo = $('.album[data-id="' + id + '"]');
+    if (!alvo) return;
+    alvo.scrollIntoView({ behavior: "smooth", block: "center" });
+    if (alvo.getAttribute("aria-expanded") !== "true") {
+      setTimeout(() => alvo.click(), 650);
+    }
+  }
+
   /* --- 3.13 a roda 3D dos álbuns --- */
   function renderWheel() {
     const wheel = $("#wheel");
@@ -490,16 +500,35 @@
     ).join("");
 
     /* clique numa capa: desce até o álbum na lista e abre as faixas */
-    $$(".wheel-item").forEach((el) => {
-      el.addEventListener("click", () => {
-        const alvo = $('.album[data-id="' + el.dataset.id + '"]');
-        if (!alvo) return;
-        alvo.scrollIntoView({ behavior: "smooth", block: "center" });
-        if (alvo.getAttribute("aria-expanded") !== "true") {
-          setTimeout(() => alvo.click(), 650);
-        }
-      });
-    });
+    $$(".wheel-item").forEach((el) =>
+      el.addEventListener("click", () => abrirAlbumNaLista(el.dataset.id))
+    );
+  }
+
+  /* --- 3.14 os versos --- */
+  function renderVerses() {
+    const box = $("#versesFlow");
+    if (!box) return;
+    box.innerHTML = VERSES.map((v, i) => {
+      const album = ALBUMS.find((a) => a.id === v.albumId);
+      return (
+        '<figure class="verse reveal' + (i % 2 ? " verse-right" : "") + '">' +
+          "<blockquote>" +
+            v.lines.map((l) => "<span>" + l + "</span>").join("") +
+          "</blockquote>" +
+          "<figcaption>" +
+            '<span class="verse-from">' + v.track + (album ? " · " + album.title : "") + "</span>" +
+            '<button class="verse-listen" type="button" data-id="' + v.albumId + '">' +
+              t("verses.listen") + " →" +
+            "</button>" +
+          "</figcaption>" +
+        "</figure>"
+      );
+    }).join("");
+
+    $$(".verse-listen", box).forEach((b) =>
+      b.addEventListener("click", () => abrirAlbumNaLista(b.dataset.id))
+    );
   }
 
   /* roda tudo de uma vez */
@@ -515,6 +544,7 @@
     renderPins();
     renderFooter();
     renderWheel();
+    renderVerses();
   }
 
 
