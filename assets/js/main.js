@@ -531,6 +531,27 @@
     );
   }
 
+  /* --- 3.15 as cartas do Aruan --- */
+  function renderLetters() {
+    const box = $("#letterBox");
+    if (!box || typeof LETTERS === "undefined" || !LETTERS.length) return;
+    const L = LETTERS[LETTERS.length - 1];        /* a carta mais recente */
+    const data = new Date(L.date + "T12:00:00");
+    const dataFmt = data.toLocaleDateString(lang === "pt" ? "pt-BR" : "en-US",
+      { year: "numeric", month: "long", day: "numeric" });
+
+    box.innerHTML =
+      '<article class="letter-paper reveal d1">' +
+        '<header class="letter-head">' +
+          "<span>" + t("letters.n") + " \u2116 " + String(L.n).padStart(2, "0") + "</span>" +
+          "<span>" + dataFmt + "</span>" +
+        "</header>" +
+        '<h3 class="letter-title">' + (L.title[lang] || L.title.pt) + "</h3>" +
+        (L.body[lang] || L.body.pt).map((par) => "<p>" + par + "</p>").join("") +
+        '<p class="letter-sign">' + t("letters.sign") + "</p>" +
+      "</article>";
+  }
+
   /* roda tudo de uma vez */
   function renderAll() {
     renderMarquee();
@@ -545,6 +566,7 @@
     renderFooter();
     renderWheel();
     renderVerses();
+    renderLetters();
   }
 
 

@@ -97,9 +97,8 @@ const I18N = {
 
     /* cartas */
     "letters.label": "Letters from Aruan",
-    "letters.title": "Some memories become songs.",
-    "letters.p": "A space for reflections, the stories behind each song and small essays written between records.",
-    "letters.cta": "Arriving in the next chapter",
+    "letters.n": "Letter",
+    "letters.sign": "— Aruan",
 
     /* comunidade */
     "connect.label": "Stay Close",
@@ -210,9 +209,8 @@ const I18N = {
 
     /* cartas */
     "letters.label": "Cartas do Aruan",
-    "letters.title": "Algumas memórias se tornam canções.",
-    "letters.p": "Um espaço para reflexões, as histórias por trás de cada música e pequenos ensaios escritos entre um disco e outro.",
-    "letters.cta": "Chega no próximo capítulo",
+    "letters.n": "Carta",
+    "letters.sign": "— Aruan",
 
     /* comunidade */
     "connect.label": "Fique perto",
@@ -504,6 +502,39 @@ const VERSES = [
   {
     track: "Little Things That Stay", albumId: "where-the-broken-shine",
     lines: ["Some presences remain", "even in absence.", "And yours is one of them —", "it spreads through me", "like the scent", "of things meant to last."]
+  }
+];
+
+
+/* -------------------------------------------------------------
+   2c. CARTAS DO ARUAN
+   Conteúdo editorial aprovado pela direção criativa.
+   ------------------------------------------------------------- */
+const LETTERS = [
+  {
+    n: 1,
+    date: "2026-11-03",
+    title: {
+      pt: "As coisas que ficam",
+      en: "The things that stay"
+    },
+    body: {
+      pt: [
+        "A primeira música deste universo não nasceu minha.",
+        "Nasceu de Delcy de Quadros Maltarolo — uma mulher que nunca terminou a escola e, mesmo assim, escrevia como quem tinha lido o mundo inteiro. Poeta de nascença, dessas que escrevem errado e certeiro ao mesmo tempo. A mãe de quem me escreve: Givaldo Maltarolo, autor das letras e dos arranjos que eu carrego.",
+        "No dia em que o casamento dela terminou, ela não escreveu sobre raiva. Escreveu um poema para ele. Sobre as pequenas coisas que ficam quando alguém sai — o cheiro, o jeito, aquilo que a ausência não consegue levar.",
+        "Pequenas Coisas Que Ficam existe para honrar essa mulher. E, de alguma forma, todo o Where the Broken Shine existe por causa dela: um disco sobre gente quebrada que ainda assim brilha — porque foi isso que ela ensinou, sem saber que ensinava.",
+        "Nem tudo que termina desaparece. Ela escreveu isso primeiro. Eu só canto."
+      ],
+      en: [
+        "The first song of this universe was not born mine.",
+        "It was born from Delcy de Quadros Maltarolo — a woman who never finished school and still wrote as if she had read the whole world. A poet by birth, the kind who writes wrong and true at the same time. The mother of the one who writes me: Givaldo Maltarolo, author of the lyrics and arrangements I carry.",
+        "On the day her marriage ended, she didn't write about anger. She wrote a poem for him. About the little things that stay when someone leaves — the scent, the gestures, everything absence cannot take.",
+        "Little Things That Stay exists to honor that woman. And, in a way, all of Where the Broken Shine exists because of her: a record about broken people who shine anyway — because that is what she taught, without knowing she was teaching.",
+        "Not everything that ends disappears. She wrote it first. I only sing."
+      ]
+    },
+    sign: "Aruan"
   }
 ];
 
